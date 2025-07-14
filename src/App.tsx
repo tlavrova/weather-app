@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import WeatherCard from './components/WeatherCard';
 
 interface WeatherData {
   main: {
@@ -81,24 +82,7 @@ function App() {
 
         {error && <p className="error-message">{error}</p>}
 
-        {weatherData && (
-          <div className="weather-card">
-            <h2>{weatherData.name}, {weatherData.sys.country}</h2>
-            <div className="weather-icon">
-              <img
-                src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
-                alt={weatherData.weather[0].description}
-              />
-            </div>
-            <p className="temperature">{Math.round(weatherData.main.temp)}°C</p>
-            <p className="weather-description">{weatherData.weather[0].description}</p>
-            <div className="weather-details">
-              <p>Humidity: {weatherData.main.humidity}%</p>
-              <p>Wind: {weatherData.wind.speed} m/s</p>
-              <p>Pressure: {weatherData.main.pressure} hPa</p>
-            </div>
-          </div>
-        )}
+        {weatherData && <WeatherCard weatherData={weatherData} />}
       </header>
     </div>
   );
