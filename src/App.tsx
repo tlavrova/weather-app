@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import WeatherCard from './components/WeatherCard';
+import SearchBar from './components/SearchBar';
 
 interface WeatherData {
   main: {
@@ -29,12 +30,12 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchWeatherData = async () => {
-    if (!city.trim()) return;
+  const fetchWeatherData = async (searchCity: string) => {
+    if (!searchCity.trim()) return;
 
     // In a real app, you would store this in an environment variable
     const API_KEY = 'YOUR_API_KEY';
-    const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
+    const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${API_KEY}`;
 
     setIsLoading(true);
     setError(null);
@@ -55,9 +56,9 @@ function App() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    fetchWeatherData();
+  const handleSearch = (searchCity: string) => {
+    setCity(searchCity);
+    fetchWeatherData(searchCity);
   };
 
   return (
@@ -65,18 +66,7 @@ function App() {
       <header className="App-header">
         <h1>Weather App</h1>
 
-        <form onSubmit={handleSubmit} className="search-form">
-          <input
-            type="text"
-            placeholder="Enter city name"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            className="search-input"
-          />
-          <button type="submit" className="search-button">
-            Get Weather
-          </button>
-        </form>
+        <SearchBar onSearch={handleSearch} />
 
         {isLoading && <p>Loading weather data...</p>}
 
