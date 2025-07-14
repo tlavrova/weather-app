@@ -33,8 +33,8 @@ function App() {
   const fetchWeatherData = async (searchCity: string) => {
     if (!searchCity.trim()) return;
 
-    // In a real app, you would store this in an environment variable
-    const API_KEY = 'YOUR_API_KEY';
+    // Using environment variable for API key
+    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
     const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${API_KEY}`;
 
     setIsLoading(true);
