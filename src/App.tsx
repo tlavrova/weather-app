@@ -1,52 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
+
+// Component imports
 import WeatherCard from './components/WeatherCard';
 import SearchBar from './components/SearchBar';
 
-interface WeatherData {
-  main: {
-    temp: number;
-    humidity: number;
-    pressure: number;
-  };
-  weather: {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }[];
-  name: string;
-  sys: {
-    country: string;
-  };
-  wind: {
-    speed: number;
-  };
-}
+// Types and services
+import { WeatherData } from './types/weather';
+import { weatherService } from './services/weatherService';
 
+/**
+ * Main Application component
+ * Manages state and coordinates between search and display components
+ */
 function App() {
+  // State management
   const [city, setCity] = useState<string>('');
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchWeatherData = async (searchCity: string) => {
+  /**
+   * Handles the weather search process
+   * @param searchCity - City name to search for
+   */
+  const handleSearch = async (searchCity: string) => {
     if (!searchCity.trim()) return;
 
-    // Using environment variable for API key
-    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-    const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${API_KEY}`;
-
+    setCity(searchCity);
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(API_URL);
-      if (!response.ok) {
-        throw new Error('City not found or API error');
-      }
-
-      const data = await response.json();
+      const data = await weatherService.fetchWeatherForCity(searchCity);
       setWeatherData(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -56,22 +42,18 @@ function App() {
     }
   };
 
-  const handleSearch = (searchCity: string) => {
-    setCity(searchCity);
-    fetchWeatherData(searchCity);
-  };
-
+  // Render UI elements based on current state
   return (
     <div className="App">
       <header className="App-header">
         <h1>Weather App</h1>
 
+        {/* Search component */}
         <SearchBar onSearch={handleSearch} />
 
-        {isLoading && <p>Loading weather data...</p>}
-
+        {/* Conditional rendering based on state */}
+        {isLoading && <p className="status-message">Loading weather data...</p>}
         {error && <p className="error-message">{error}</p>}
-
         {weatherData && <WeatherCard weatherData={weatherData} />}
       </header>
     </div>
