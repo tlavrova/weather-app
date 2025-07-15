@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // Component imports
@@ -8,6 +8,9 @@ import SearchBar from './components/SearchBar';
 // Types and services
 import { WeatherData } from './types/weather';
 import { weatherService } from './services/weatherService';
+
+// Constants
+import { STORAGE_KEYS } from './constants';
 
 /**
  * Main Application component
@@ -19,6 +22,15 @@ function App() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Load the last searched city from local storage on component mount
+  useEffect(() => {
+    const lastCity = localStorage.getItem(STORAGE_KEYS.LAST_CITY);
+    if (lastCity) {
+      setCity(lastCity);
+      handleSearch(lastCity);
+    }
+  }, []);
 
   /**
    * Handles the weather search process
@@ -32,6 +44,9 @@ function App() {
     setError(null);
 
     try {
+      // Store the city in local storage before fetching data
+      localStorage.setItem(STORAGE_KEYS.LAST_CITY, searchCity);
+
       const data = await weatherService.fetchWeatherForCity(searchCity);
       setWeatherData(data);
     } catch (err) {
