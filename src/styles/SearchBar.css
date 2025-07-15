@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  box-sizing: border-box;
 }
 
 .search-input {
@@ -18,6 +19,8 @@
   border: none;
   border-radius: var(--border-radius);
   outline: none;
+  box-sizing: border-box;
+  -webkit-appearance: none; /* Remove default styling on iOS */
 }
 
 .search-buttons {
@@ -35,8 +38,10 @@
   border-radius: var(--border-radius);
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.1s;
   flex: 1;
+  white-space: nowrap;
+  min-height: 44px; /* Minimum touch target size */
 }
 
 .search-button {
@@ -45,6 +50,10 @@
 
 .search-button:hover {
   background-color: var(--primary-hover);
+}
+
+.search-button:active {
+  transform: scale(0.98);
 }
 
 .location-button {
@@ -59,13 +68,35 @@
   background-color: var(--secondary-hover);
 }
 
+.location-button:active {
+  transform: scale(0.98);
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .search-form {
-    flex-direction: column;
+    margin-bottom: var(--spacing-lg);
   }
 
   .search-input {
-    margin-bottom: var(--spacing-sm);
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .search-form {
+    margin-bottom: var(--spacing-md);
+    gap: 8px;
+  }
+
+  .search-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-button,
+  .location-button {
+    padding: 0.7rem var(--spacing-md);
+    font-size: 0.95rem;
   }
 }

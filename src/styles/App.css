@@ -25,6 +25,11 @@
   /* Border radius */
   --border-radius: 4px;
   --card-radius: 16px;
+
+  /* Breakpoints */
+  --mobile: 480px;
+  --tablet: 768px;
+  --desktop: 1024px;
 }
 
 /* --------------------
@@ -32,6 +37,8 @@
  * -------------------- */
 .App {
   text-align: center;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -53,6 +60,8 @@
   align-items: center;
   padding: var(--spacing-xl);
   color: white;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* --------------------
@@ -75,4 +84,42 @@ h1 {
   margin: var(--spacing-md) 0;
   font-size: 1rem;
   font-style: italic;
+}
+
+/* --------------------
+ * Responsive Typography
+ * -------------------- */
+@media (max-width: var(--mobile)) {
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .error-message,
+  .status-message {
+    font-size: 0.9rem;
+  }
+}
+
+/* Base responsive container styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  box-sizing: border-box;
+}
+
+/* Media query for tablets */
+@media (max-width: var(--tablet)) {
+  .App-header {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+
+/* Media query for mobile devices */
+@media (max-width: var(--mobile)) {
+  .App-header {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
 }
