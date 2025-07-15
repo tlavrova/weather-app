@@ -26,5 +26,29 @@ export const weatherService = {
     }
 
     return response.json();
-  }
+  },
+
+  /**
+   * Fetch weather data based on geographic coordinates
+   *
+   * @param latitude - The latitude coordinate
+   * @param longitude - The longitude coordinate
+   * @returns Promise with weather data
+   */
+  async fetchWeatherByCoordinates(
+    latitude: number,
+    longitude: number
+  ): Promise<WeatherData> {
+    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+    const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
+
+    const response = await fetch(API_URL);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to fetch weather data');
+    }
+
+    return response.json();
+  },
 };

@@ -1,0 +1,71 @@
+/*
+ * SearchBar Component Styles
+ */
+
+.search-form {
+  margin-bottom: var(--spacing-xl);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem var(--spacing-md);
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  outline: none;
+}
+
+.search-buttons {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Button styles */
+.search-button,
+.location-button {
+  padding: 0.8rem var(--spacing-lg);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex: 1;
+}
+
+.search-button {
+  background-color: var(--primary-color);
+}
+
+.search-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.location-button {
+  background-color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.location-button:hover {
+  background-color: var(--secondary-hover);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+  }
+
+  .search-input {
+    margin-bottom: var(--spacing-sm);
+  }
+}

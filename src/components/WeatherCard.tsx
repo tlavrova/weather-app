@@ -1,5 +1,6 @@
 import React from 'react';
 import { WeatherData } from '../types/weather';
+import '../styles/WeatherCard.css';
 
 interface WeatherCardProps {
   weatherData: WeatherData;

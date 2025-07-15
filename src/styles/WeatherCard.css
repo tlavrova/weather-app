@@ -1,0 +1,52 @@
+/*
+ * WeatherCard Component Styles
+ */
+
+.weather-card {
+  background-color: rgba(30, 33, 58, 0.7);
+  border-radius: var(--card-radius);
+  padding: var(--spacing-xl);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  min-width: 300px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: var(--spacing-md);
+}
+
+.weather-card h2 {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-light);
+}
+
+.weather-icon {
+  margin: var(--spacing-md) 0;
+}
+
+.weather-icon img {
+  width: 100px;
+  height: 100px;
+}
+
+.temperature {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: var(--spacing-md) 0;
+  color: var(--text-light);
+}
+
+.weather-description {
+  font-size: 1.4rem;
+  margin-bottom: var(--spacing-lg);
+  text-transform: capitalize;
+  color: var(--text-muted);
+}
+
+.weather-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  font-size: 1rem;
+  color: var(--text-muted);
+}
